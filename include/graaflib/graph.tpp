@@ -118,6 +118,22 @@ graph<VERTEX_T, EDGE_T, GRAPH_TYPE_V>::get_edge(
 }
 
 template <typename VERTEX_T, typename EDGE_T, graph_type GRAPH_TYPE_V>
+[[nodiscard]] std::unordered_map<vertex_id_t, EDGE_T>
+const graph<VERTEX_T, EDGE_T, GRAPH_TYPE_V>::get_edges(vertex_id_t vertex_id) const {
+  if (!adjacency_list_.contains(vertex_id)) {
+    return {};
+  }
+
+  std::unordered_map<vertex_id_t, edge_t> neighbouring_edges{};
+  for (auto& target_vertex_id : adjacency_list_.at(vertex_id)) {
+    edge_id_t edge_id = std::pair<vertex_id_t, vertex_id_t>{vertex_id, target_vertex_id};
+    neighbouring_edges[edge_id] = get_edge(edge_id);
+  }
+
+  return neighbouring_edges;
+}
+
+template <typename VERTEX_T, typename EDGE_T, graph_type GRAPH_TYPE_V>
 typename graph<VERTEX_T, EDGE_T, GRAPH_TYPE_V>::vertices_t
 graph<VERTEX_T, EDGE_T, GRAPH_TYPE_V>::get_neighbors(
     vertex_id_t vertex_id) const {

@@ -164,6 +164,14 @@ class graph {
   [[nodiscard]] const edge_t& get_edge(const edge_id_t& edge_id) const;
 
   /**
+   * @brief Get a list of edges connected to a given vertex
+   *
+   * @param vertex_id The ID of the vertex
+   * @return std::unordered_map<vertex_id_t, edge_t> - A map from neighbouring vertices and their corresponding edges.
+   */
+    [[nodiscard]] const std::unordered_map<vertex_id_t, edge_t> get_edges(vertex_id_t vertex_id) const;
+
+  /**
    * Get a list of neighbour vertices
    *
    * @param  vertex_id The ID of the vertex
